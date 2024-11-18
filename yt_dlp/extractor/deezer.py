@@ -40,7 +40,7 @@ class DeezerPlaylistIE(DeezerBaseInfoExtractor):
             'id': '176747451',
             'title': 'Best!',
             'uploader': 'anonymous',
-            'thumbnail': r're:^https?://(e-)?cdns-images\.dzcdn\.net/images/cover/.*\.jpg$',
+            'thumbnail': r're:^https?:\/\/[\w-]*\.dzcdn\.net\/images\/playlist\/.*\/.*\.jpg$',
         },
         'playlist_count': 29,
     }
@@ -51,8 +51,8 @@ class DeezerPlaylistIE(DeezerBaseInfoExtractor):
         playlist_title = data.get('DATA', {}).get('TITLE')
         playlist_uploader = data.get('DATA', {}).get('PARENT_USERNAME')
         playlist_thumbnail = self._search_regex(
-            r'<img id="naboo_playlist_image".*?src="([^"]+)"', webpage,
-            'playlist thumbnail')
+            r'<img id="naboo_playlist_image".*?src="([\w-]*\.dzcdn\.net\/images\/playlist\/.*\/).*\.jpg"', webpage,
+            'playlist thumbnail') + '1920x1920.png'
 
         entries = []
         for s in data.get('SONGS', {}).get('data'):
@@ -92,7 +92,7 @@ class DeezerAlbumIE(DeezerBaseInfoExtractor):
             'id': '67505622',
             'title': 'Last Week',
             'uploader': 'Home Brew',
-            'thumbnail': r're:^https?://(e-)?cdns-images\.dzcdn\.net/images/cover/.*\.jpg$',
+            'thumbnail': r're:^https?:\/\/[\w-]*\.dzcdn\.net\/images\/playlist\/.*\/.*\.jpg$',
         },
         'playlist_count': 7,
     }
@@ -103,8 +103,8 @@ class DeezerAlbumIE(DeezerBaseInfoExtractor):
         album_title = data.get('DATA', {}).get('ALB_TITLE')
         album_uploader = data.get('DATA', {}).get('ART_NAME')
         album_thumbnail = self._search_regex(
-            r'<img id="naboo_album_image".*?src="([^"]+)"', webpage,
-            'album thumbnail')
+            r'<img id="naboo_album_image".*?src="([\w-]*\.dzcdn\.net\/images\/cover\/.*\/).*\.jpg"', webpage,
+            'album thumbnail') + '1920x1920.png'
 
         entries = []
         for s in data.get('SONGS', {}).get('data'):
