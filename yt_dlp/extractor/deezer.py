@@ -50,9 +50,9 @@ class DeezerPlaylistIE(DeezerBaseInfoExtractor):
 
         playlist_title = data.get('DATA', {}).get('TITLE')
         playlist_uploader = data.get('DATA', {}).get('PARENT_USERNAME')
-        playlist_thumbnail = self._search_regex(
+        playlist_thumbnail = '{}1920x1920.png'.format(self._search_regex(
             r'<img id="naboo_playlist_image".*?src="([\w-]*\.dzcdn\.net\/images\/playlist\/.*\/).*\.jpg"', webpage,
-            'playlist thumbnail') + '1920x1920.png'
+            'playlist thumbnail'))
 
         entries = []
         for s in data.get('SONGS', {}).get('data'):
@@ -102,9 +102,9 @@ class DeezerAlbumIE(DeezerBaseInfoExtractor):
 
         album_title = data.get('DATA', {}).get('ALB_TITLE')
         album_uploader = data.get('DATA', {}).get('ART_NAME')
-        album_thumbnail = self._search_regex(
+        album_thumbnail = '{}1920x1920.png'.format(self._search_regex(
             r'<img id="naboo_album_image".*?src="([\w-]*\.dzcdn\.net\/images\/cover\/.*\/).*\.jpg"', webpage,
-            'album thumbnail') + '1920x1920.png'
+            'album thumbnail'))
 
         entries = []
         for s in data.get('SONGS', {}).get('data'):
